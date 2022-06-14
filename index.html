@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap" rel="stylesheet"> 
+
+    <title>Interactive rating component</title>
+    <style>
+        body{
+            font-family: 'Overpass', sans-serif;
+        }
+        .bg-very-dark-blue{
+            background-color: hsl(216, 12%, 8%)
+        }
+        .card-bg-dark-blue{
+            
+            background-color: hsl(213, 19%, 18%)
+        }
+        .round-side{
+            border-radius: 20px;
+        }
+        .h3-heading{
+            color: hsl(0, 0%, 100%);
+        }
+        .para{
+            color:hsl(217, 12%, 63%) ;   
+        }
+        .num{
+            color:hsl(216, 12%, 54%) ;   
+        }
+        .btn-color{
+            background-color: hsl(25, 97%, 53%);
+            color: hsl(0, 0%, 100%);
+            border-radius: 30px;
+        }
+        .btn-color:hover{
+            background-color: hsl(0, 0%, 100%);
+            color: hsl(25, 97%, 53%);
+            border-radius: 30px;
+        }
+        .bg-circle{
+            background-color: hsl(216, 12%, 24%);
+            border-radius: 100%;
+            width: 45px;
+            height: 45px;
+        }
+        .star{
+            position: absolute;
+             bottom: 33%;
+             width: 16px;
+             text-align: center;
+             left: 32%;
+        }
+        .para-circle{
+            background-color: hsl(216, 12%, 24%);
+            cursor: pointer;
+            border-radius: 100%;
+            width: 45px;
+            height: 45px;
+        }
+        .para-circle:hover{
+            background-color: hsl(217, 12%, 63%);
+            
+        }
+        .ab p{
+             padding-top: 13px;
+             padding-right: 1px;           
+             /* background: ; */
+        }
+        .color-changeon-event{
+            background-color: hsl(25, 97%, 53%);
+            color: hsl(0, 0%, 100%);
+        }
+        .selectedrating{
+            background-color: hsl(216, 12%, 24%);
+            color:hsl(25, 97%, 53%) ;
+
+            border-radius: 10px;
+            padding: .2rem .3rem;
+            margin-left:5rem ;
+            margin-top: 2rem;
+            
+
+        }
+
+    </style>
+</head>
+<body>
+    <section class="bg-very-dark-blue py-5">
+        <div class="container  py-5">
+            <div class="row py-5">
+                <div class="col-4"></div>
+                <div class="col-4 card-bg-dark-blue p-4 round-side" id="hideafterclick">
+                    <div class="bg-circle text-cenr position-relative"z>
+                        <img class="star   " src="./images/icon-star.svg" alt="">
+                    </div>
+                    <h4 class="h3-heading fs-5 fw-bold pt-4">How did we do?</h4>
+                    <p class="para ">Please let us know how we did with your support request. All feedback is appreciated 
+                        to help us improve our offering!</p>
+                        <div class="row">
+                            <div class="col-12 ab justify-content-center align-content-center">
+                                    <p class="d-inline-block  text-center para-circle mx-2" id="rating-1" value="1">1</p>
+                                    <p class="d-inline-block  text-center para-circle mx-2" id="rating-2">2</p>                                
+                                    <p class="d-inline-block  text-center para-circle mx-2" id="rating-3">3</p>                                
+                                    <p class="d-inline-block  text-center para-circle mx-2" id="rating-4">4</p>                                
+                                    <p class="d-inline-block  text-center para-circle mx-2" id="rating-5">5</p>                                
+                            </div>
+                        </div>
+                        <button class="btn btn-color w-100" id="button">Submit</button>
+                    </div>
+                        <div class="col-4 card-bg-dark-blue p-4 round-side" id="showafterclick">
+                            <img class="d-block m-auto py-3" src="./images/illustration-thank-you.svg" alt="">
+                            <h6 class="selectedrating text-center d-inline " id="selectedrating"></h6>
+                            <h3 class="text-light text-center pt-4">Thank you!</h3>
+                            <p class="para text-center"> We appreciate you taking the time to give a rating. If you ever need more support, 
+                                don’t hesitate to get in touch!</p>
+                            </div>
+                <div class="col-4"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+
+        let rating1 = document.querySelector('#rating-1')
+        let rating2 = document.querySelector('#rating-2')
+        let rating3 = document.querySelector('#rating-3')
+        let rating4 = document.querySelector('#rating-4')
+        let rating5 = document.querySelector('#rating-5')
+        let button = document.querySelector('#button')
+        let showSfterClick = document.querySelector('#showafterclick')
+        let hideafterclick = document.querySelector('#hideafterclick')
+        let selectedrating = document.querySelector('#selectedrating')
+
+        showSfterClick.style.display = 'none'
+
+        function empty(){
+            rating1.style.background =  ''
+            rating1.style.color =  ''
+            rating2.style.background =  ''
+            rating2.style.color =  ''
+            rating3.style.background =  ''
+            rating3.style.color =  ''
+            rating4.style.background =  ''
+            rating4.style.color =  ''
+            rating5.style.background =  ''
+            rating5.style.color =  ''
+        }
+
+        console.log(rating1.innerText); 
+
+        rating1.addEventListener("click",(e)=>{
+
+
+            if (rating1.style.background !== '' || rating2.style.background !== '' || rating3.style.background !== '' || rating4.style.background !== '' || rating5.style.background !== '') {
+                empty()
+            }
+
+                rating1.style.background =  'hsl(25, 97%, 53%)'
+                rating1.style.color =  'hsl(0, 0%, 100%)'
+
+                let rating1val = rating1.innerHTML
+                selectedrating.innerHTML = ` You selected ${rating1val} out of 5`
+        })
+
+
+        rating2.addEventListener("click",()=>{            
+            if (rating1.style.background !== '' || rating2.style.background !== '' || rating3.style.background !== '' || rating4.style.background !== '' || rating5.style.background !== '') {
+                empty()
+            }
+
+            rating2.style.background =  'hsl(25, 97%, 53%)'
+            rating2.style.color =  'hsl(0, 0%, 100%)'
+
+            let rating2val = rating2.innerHTML
+                selectedrating.innerHTML = ` You selected ${rating2val} out of 5`
+        })
+
+        rating3.addEventListener("click",()=>{
+            if (rating1.style.background !== '' || rating2.style.background !== '' || rating3.style.background !== '' || rating4.style.background !== '' || rating5.style.background !== '') {
+                empty()
+            }
+            rating3.style.background =  'hsl(25, 97%, 53%)'
+            rating3.style.color =  'hsl(0, 0%, 100%)'
+            let rating3val = rating3.innerHTML
+                selectedrating.innerHTML = ` You selected ${rating3val} out of 5`
+        })
+        rating4.addEventListener("click",()=>{
+            if (rating1.style.background !== '' || rating2.style.background !== '' || rating3.style.background !== '' || rating4.style.background !== '' || rating5.style.background !== '') {
+                empty()
+            }
+            rating4.style.background =  'hsl(25, 97%, 53%)'
+            rating4.style.color =  'hsl(0, 0%, 100%)'
+            let rating4val = rating4.innerHTML
+                selectedrating.innerHTML = ` You selected ${rating4val} out of 5`
+        })
+        rating5.addEventListener("click",()=>{
+            if (rating1.style.background !== '' || rating2.style.background !== '' || rating3.style.background !== '' || rating4.style.background !== '' || rating5.style.background !== '') {
+                empty()
+            }
+            rating5.style.background =  'hsl(25, 97%, 53%)'
+            rating5.style.color =  'hsl(0, 0%, 100%)'
+            let rating5val = rating5.innerHTML
+                selectedrating.innerHTML = ` You selected ${rating5val} out of 5`
+        })
+
+
+        button.addEventListener('click',()=>{
+            console.log('test');
+            hideafterclick.style.display = 'none'
+            showSfterClick.style.display = 'block'
+        })
+
+
+
+
+
+
+
+
+
+        
+
+
+
+    </script>
+    
+</body>
+</html>
